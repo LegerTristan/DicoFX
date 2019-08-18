@@ -11,6 +11,8 @@ public class Definition {
 		this.definition = definition;
 		
 	}
-	
-	
+
+	public String getNom() {
+		return nom;
+	}
 }

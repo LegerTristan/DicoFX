@@ -2,6 +2,7 @@ package fr.glossairedef.vue;
 
 import fr.glossairedef.controleur.ControleurCategorie;
 import fr.glossairedef.controleur.ControleurDef;
+import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.models.Categorie;
 import fr.glossairedef.models.Constante;
 import javafx.application.Application;
@@ -33,8 +34,15 @@ public class Main extends Application {
 	
 	private VBox vbBtn;
 	
+	private Button btnGestionDef;
 	private Button btnAddDef;
+	
+	private Button btnGestionCategorie;
 	private Button btnAddCategorie;
+	private Button btnSuppCategorie;
+	
+	private Button btnReviser;
+	
 	private Button btnQuitter;
 	
 	private Label lbAccueil;
@@ -67,24 +75,32 @@ public class Main extends Application {
 
 		vbBtn = new VBox();
 		
-		btnAddDef = new Button("Ajouter une définition");
-		btnAddDef.setPadding(new Insets(20));
-		btnAddDef.setFont(new Font(15));
+		btnGestionDef = new Button("Gestion des définitions");
+		btnGestionDef.setPadding(new Insets(20));
+		btnGestionDef.setFont(new Font(15));
 		
-		btnAddDef.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(Main.fenetre, this.btnAddDef));
-		btnAddDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ajoute une nouvelle définition à ton glossaire et range-la dans une catégorie :D !"));
-		btnAddDef.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		btnGestionDef.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> fenetre.setScene(this.afficherMenuDefinition()));
+		btnGestionDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("En cliquant sur ce bouton, tu pourras gérer les définitions :) !"));
+		btnGestionDef.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
-		btnAddCategorie = new Button("Ajouter une catégorie");
-		btnAddCategorie.setPadding(new Insets(20));
-		btnAddCategorie.setFont(new Font(15));
+		btnGestionCategorie = new Button("Gestion des catégories");
+		btnGestionCategorie.setPadding(new Insets(20));
+		btnGestionCategorie.setFont(new Font(15));
 		
-		btnAddCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(Main.fenetre, this.btnAddCategorie));
-		btnAddCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ajoute une nouvelle catégorie à ton glossaire pour ranger tes définitions :D !"));
-		btnAddCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		btnGestionCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> fenetre.setScene(this.afficherMenuCategorie()));
+		btnGestionCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Grâce à ce bouton, tu pourras accéder au menu des catégories :) !"));
+		btnGestionCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnReviser = new Button("Réviser");
+		btnReviser.setPadding(new Insets(20, 70, 20, 70));
+		btnReviser.setFont(new Font(15));
+		
+		//btnReviser.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> fenetre.setScene(this.afficherMenuDefinition()));
+		btnReviser.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("T'es d'humeur à réviser ? Parce que moi non :D !"));
+		btnReviser.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
 		btnQuitter = new Button("Revenir au bureau");
-		btnQuitter.setPadding(new Insets(20));
+		btnQuitter.setPadding(new Insets(20, 35, 20, 35));
 		btnQuitter.setFont(new Font(15));
 		
 		btnQuitter.setOnMouseClicked((MouseEvent event) -> fenetre.close());
@@ -112,7 +128,9 @@ public class Main extends Application {
 	
 	private void positionnement() {
 		
-		btnAddCategorie.setTranslateY(50);
+		btnGestionDef.setTranslateY(-50);
+		
+		btnReviser.setTranslateY(50);
 		
 		btnQuitter.setTranslateY(100);
 		
@@ -123,12 +141,11 @@ public class Main extends Application {
 		lbExplication.setAlignment(Pos.CENTER);
 		
 		vbBtn.setAlignment(Pos.CENTER);
-		vbBtn.getChildren().addAll(btnAddDef, btnAddCategorie, btnQuitter);
+		vbBtn.getChildren().addAll(btnGestionDef, btnGestionCategorie, btnReviser, btnQuitter);
 		
 		this.root.setTop(lbAccueil);
 		
 		this.root.setCenter(vbBtn);
-		
 		
 		this.root.setBottom(lbExplication);
 	}
@@ -140,6 +157,73 @@ public class Main extends Application {
 		fenetre.setScene(scMenu);
 		
 	}
+	
+	private Scene afficherMenuCategorie() {
+		
+		btnAddCategorie = new Button("Ajouter une catégorie");
+		btnAddCategorie.setPadding(new Insets(20));
+		btnAddCategorie.setFont(new Font(15));
+		
+		btnAddCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(Main.fenetre, this.btnAddCategorie));
+		btnAddCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ajoute une nouvelle catégorie à ton glossaire pour ranger tes définitions :D !"));
+		btnAddCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnAddCategorie.setTranslateY(-100);
+		
+		btnSuppCategorie = new Button("Supprimer une catégorie");
+		btnSuppCategorie.setPadding(new Insets(20));
+		btnSuppCategorie.setFont(new Font(15));
+		
+		btnSuppCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurSuppCategorie(Main.fenetre, this.btnSuppCategorie));
+		btnSuppCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ce bouton te permet de supprimer une catégorie dont tu ne vois plus l'utilité."));
+		btnSuppCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnSuppCategorie.setTranslateY(- 50);
+		
+		btnQuitter.setTranslateY(00);
+		
+		btnQuitter.setOnMouseClicked((MouseEvent event) -> {this.initialisation(); this.positionnement();});
+		btnQuitter.setText("Revenir au menu précédent");
+		btnQuitter.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Clique sur ce bouton et tu reviendras au menu précédent ;) !"));
+		
+		lbAccueil.setText("Tu veux qu'on gère les catégories aujourd'hui :) ?");
+		
+		vbBtn.getChildren().removeAll(btnGestionCategorie, btnGestionDef, btnQuitter, btnReviser);
+		vbBtn.getChildren().addAll(btnAddCategorie, btnSuppCategorie, btnQuitter);
+		
+		scMenu.setRoot(root);
+
+		return scMenu;
+	}
+
+	private Scene afficherMenuDefinition() {
+
+		btnAddDef = new Button("Ajouter une définition");
+		btnAddDef.setPadding(new Insets(20));
+		btnAddDef.setFont(new Font(15));
+		
+		btnAddDef.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(Main.fenetre, this.btnAddDef));
+		btnAddDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ajoute une nouvelle définition dans une catégorie existante à ton glossaire :D !"));
+		btnAddDef.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnAddDef.setTranslateY(-100);
+		
+		btnQuitter.setTranslateY(100);
+		
+		btnQuitter.setOnMouseClicked((MouseEvent event) -> {this.initialisation(); this.positionnement();});
+		btnQuitter.setText("Revenir au menu précédent");
+		btnQuitter.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Clique sur ce bouton et tu reviendras au menu précédent ;) !"));
+		
+		lbAccueil.setText("Tu veux qu'on gère les définitions aujourd'hui :) ?");
+		
+		vbBtn.getChildren().removeAll(btnGestionCategorie, btnGestionDef, btnReviser);
+		vbBtn.getChildren().addAll(btnAddDef);
+		
+		scMenu.setRoot(root);
+
+		return scMenu;
+	}
+
 	public static void main(String[] args) {
 
 		categories = new Categorie[10];

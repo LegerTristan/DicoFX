@@ -1,6 +1,6 @@
 package fr.glossairedef.controleur;
 
-import fr.glossairedef.models.Categorie;
+import fr.glossairedef.models.GestionCategorie;
 import fr.glossairedef.vue.AjoutCategorie;
 import fr.glossairedef.vue.Main;
 import javafx.event.EventHandler;
@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class ControleurCategorie implements EventHandler<MouseEvent> {
+public class ControleurCategorie implements EventHandler<MouseEvent>, GestionCategorie {
 
 	private Stage fenetre;
 	
@@ -62,16 +62,17 @@ public class ControleurCategorie implements EventHandler<MouseEvent> {
 
 			if(verifierNomCategorie()) {
 
-				Main.categories[0] = new Categorie(nomCategorie, null);
+				if(this.creerNouvelleCategorie(nomCategorie)){
 				
-				AjoutCategorie addCategorie = new AjoutCategorie(Main.fenetre, this.nomCategorie);
-				addCategorie.afficherSceneConfirmation();
+					AjoutCategorie addCategorie = new AjoutCategorie(Main.fenetre, this.nomCategorie);
+					addCategorie.afficherSceneConfirmation();
+				}
 			}
 			else {
 				
 				Alert erreur = new Alert(AlertType.ERROR);
-				erreur.setTitle("Erreur d'entrée d'informations");
-				erreur.setHeaderText("Erreur d'identifications du nom de la catégorie");
+				erreur.setTitle("Erreur d'entrée d'information(s)");
+				erreur.setHeaderText("Erreur d'identification du nom de la catégorie");
 				erreur.setContentText("Veuillez saisir un nom pour la catégorie que vous souhaitez créer.");
 				
 				erreur.showAndWait();

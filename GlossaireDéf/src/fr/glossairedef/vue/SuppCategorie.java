@@ -1,6 +1,7 @@
 package fr.glossairedef.vue;
 
-import fr.glossairedef.controleur.ControleurDef;
+import fr.glossairedef.controleur.ControleurCategorie;
+import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.models.ChargementComboBox;
 import fr.glossairedef.models.Constante;
 import javafx.geometry.Insets;
@@ -10,9 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
@@ -29,52 +27,49 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class AjoutDefinition implements ChargementComboBox {
-
+public class SuppCategorie implements ChargementComboBox {
+	
 	private Stage fenetre;
 	
-	private Scene scAjoutDef;
+	private Scene scSuppCategorie;
 	private Scene scConfirmation;
 	
 	private BorderPane root;
 	private GridPane tableau;
 	
-	private HBox hbBtn;
 	private VBox vbConfirmation;
+	private HBox hbBtn;
 	
-	private Button btnAdd;
+	private Button btnSupp;
 	private Button btnRetour;
 	
 	private Label lbInfoBot;
-	private Label lbNom;
-	private Label lbDefinition;
-	private Label lbCategories;
+	private Label lbListe;
 	private Label lbConfirmation;
-	
-	private TextField tfNom;
-	
-	private TextArea taDefinition;
 	
 	private ComboBox<String> cbCategories;
 	
-	private String nomDef;
-	
-	public AjoutDefinition(Stage fenetre) {
+	private String nomCategorie;
+
+	public SuppCategorie(Stage fenetre) {
 
 		this.fenetre = fenetre;
+		
 	}
 
-	public AjoutDefinition(Stage fenetre, String nom) {
 
-		this(fenetre);
-		this.nomDef = nom;
+	public SuppCategorie(Stage fenetre, String nom) {
+
+		this.fenetre = fenetre;
+		this.nomCategorie = nom;
 	}
+
 
 	public void afficherScene() {
-		
+
 		root = new BorderPane();
 
-		scAjoutDef = new Scene(root, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
+		scSuppCategorie = new Scene(root, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
 		
 		cbCategories = new ComboBox<String>();
 		cbCategories.setPrefSize(Constante.LARGEUR_COMBOBOX, Constante.HAUTEUR_COMBOBOX);
@@ -86,13 +81,14 @@ public class AjoutDefinition implements ChargementComboBox {
 			
 		}
 		else {
-			
+		
 			this.initialisation();
 			
 			this.positionnement();
 			
-			fenetre.setScene(scAjoutDef);
+			fenetre.setScene(scSuppCategorie);
 		}
+		
 	}
 
 	private void renvoieErreur() {
@@ -100,7 +96,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		Alert erreur = new Alert(AlertType.ERROR);
 		erreur.setTitle("Erreur de chargement");
 		erreur.setHeaderText("Nous n'avons pas réussi à charger la liste des catégories");
-		erreur.setContentText("Il se peut que vous ne possèdiez pas encore de catégories dans votre glossaire. Sans ça, vous ne pouvez pas créer de définitions.");
+		erreur.setContentText("Il se peut que vous ne possèdiez pas encore de catégories dans votre glossaire.");
 		
 		erreur.showAndWait();
 		
@@ -108,6 +104,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		glossaire.afficherScene(Main.fenetre);
 		
 	}
+
 
 	private void initialisation() {
 
@@ -121,61 +118,40 @@ public class AjoutDefinition implements ChargementComboBox {
 						BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
 						CornerRadii.EMPTY, new BorderWidths(3), null)));
 		
-		btnAdd = new Button("Valider");
-		btnAdd.setPadding(new Insets(20));
-		btnAdd.setFont(new Font(15));
+		lbInfoBot= new Label("Tu veux supprimer quelle catégorie aujourd'hui ?");
+		lbInfoBot.setMaxWidth(Constante.LARGEUR_FENETRE);
+		lbInfoBot.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
+		lbInfoBot.setFont(new Font(15));
 		
-		btnAdd.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> new ControleurDef(btnAdd, tfNom, taDefinition, cbCategories.getSelectionModel().getSelectedItem()).handle(event));
+		lbListe= new Label("Liste des catégories : ");
+		lbListe.setMaxWidth(Constante.LARGEUR_FENETRE);
+		lbListe.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
+		lbListe.setFont(new Font(15));
+		
+		btnSupp = new Button("Supprimer cette catégorie");
+		btnSupp.setPadding(new Insets(20));
+		btnSupp.setFont(new Font(15));
+		
+		btnSupp.setOnMouseClicked((MouseEvent event) -> new ControleurSuppCategorie(btnSupp, cbCategories.getSelectionModel().getSelectedItem()).handle(event));
 		
 		btnRetour = new Button("Revenir en arrière");
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(btnRetour));
-		
-		lbInfoBot= new Label("Quelle nouvelle définition tu veux ajouter aujourd'hui ? ");
-		lbInfoBot.setMaxWidth(Constante.LARGEUR_FENETRE);
-		lbInfoBot.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
-		lbInfoBot.setFont(new Font(15));
-		
-		lbNom= new Label("Nom : ");
-		lbNom.setFont(new Font(15));
-		
-		lbDefinition= new Label("Définition : ");
-		lbDefinition.setFont(new Font(15));
-		
-		lbCategories= new Label("Liste des catégories :");
-		lbCategories.setMaxWidth(Constante.LARGEUR_FENETRE);
-		lbCategories.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
-		lbCategories.setFont(new Font(15));
-		
-		
-		tfNom = new TextField();
-		tfNom.setPromptText("InfoBot");
-		tfNom.setTooltip(new Tooltip("Entre ici le nom de ta définition !"));
-		
-		taDefinition = new TextArea();
-		taDefinition.setTooltip(new Tooltip("Entre ici ta définition !"));
-		taDefinition.setPromptText("Bot crée à but informatif par le créateur de cette application. Outre son refrain routinier, il n'est pas très utile...");
-		
-		
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(btnRetour));	
+
+		tableau.add(lbListe, 0, 0);
+		tableau.add(cbCategories, 1, 0);
 		
 	}
 	
 	private void positionnement() {
-
-		tableau.add(lbNom, 0, 0);
-		tableau.add(tfNom, 1, 0);
-		tableau.add(lbDefinition, 0, 1);
-		tableau.add(taDefinition, 1, 1);
-		tableau.add(lbCategories, 0, 2);
-		tableau.add(cbCategories, 1, 2);
 		
 		tableau.setAlignment(Pos.CENTER);
 		tableau.setVgap(15);
-		tableau.setHgap(15);
+		tableau.setHgap(25);
 		
-		hbBtn.getChildren().addAll(btnAdd, btnRetour);
+		hbBtn.getChildren().addAll(btnSupp, btnRetour);
 		hbBtn.setAlignment(Pos.CENTER);
 		hbBtn.setSpacing(50);
 		
@@ -185,8 +161,9 @@ public class AjoutDefinition implements ChargementComboBox {
 		root.setCenter(tableau);
 		root.setTop(lbInfoBot);
 		root.setBottom(hbBtn);
-
+		
 	}
+
 
 	public void afficherSceneConfirmation() {
 
@@ -194,7 +171,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		
 		scConfirmation = new Scene(vbConfirmation, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
 		
-		lbConfirmation = new Label("La définition " + nomDef + " a bien été crée :D !" );
+		lbConfirmation = new Label("La catégorie " + nomCategorie + " a bien été supprimée :D !" );
 		lbConfirmation.setMaxWidth(Constante.LARGEUR_FENETRE);
 		lbConfirmation.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
 		lbConfirmation.setFont(new Font(15));
@@ -205,7 +182,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(btnRetour));	
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(btnRetour));	
 		
 		vbConfirmation.getChildren().addAll(lbConfirmation, btnRetour);
 		vbConfirmation.setAlignment(Pos.CENTER);
@@ -214,5 +191,6 @@ public class AjoutDefinition implements ChargementComboBox {
 		fenetre.setScene(scConfirmation);
 		
 	}
+
 
 }

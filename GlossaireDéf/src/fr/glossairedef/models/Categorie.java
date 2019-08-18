@@ -18,5 +18,9 @@ public class Categorie {
 	public List<Definition> getDefinitions() {
 		return definitions;
 	}
+
+	public String getNom() {
+		return nom;
+	}
 	
 }

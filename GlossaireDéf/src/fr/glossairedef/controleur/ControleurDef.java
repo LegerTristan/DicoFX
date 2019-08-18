@@ -2,16 +2,19 @@ package fr.glossairedef.controleur;
 
 import fr.glossairedef.models.Categorie;
 import fr.glossairedef.models.Definition;
+import fr.glossairedef.models.GestionDefinition;
 import fr.glossairedef.vue.AjoutDefinition;
 import fr.glossairedef.vue.Main;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class ControleurDef implements EventHandler<MouseEvent> {
+public class ControleurDef implements EventHandler<MouseEvent>, GestionDefinition{
 
 	private Stage fenetre;
 	
@@ -21,6 +24,7 @@ public class ControleurDef implements EventHandler<MouseEvent> {
 	
 	private String nom;
 	private String texte;
+	private String nomCategorie;
 	
 	public ControleurDef(Button btn) {
 
@@ -35,11 +39,12 @@ public class ControleurDef implements EventHandler<MouseEvent> {
 		
 	}
 
-	public ControleurDef(Button btn, TextField tfNom, TextArea taDefinition) {
+	public ControleurDef(Button btn, TextField tfNom, TextArea taDefinition, String nomCategorie) {
 
-		btnValidite = btn;
-		nom = tfNom.getText();
-		texte = taDefinition.getText();
+		this.btnValidite = btn;
+		this.nom = tfNom.getText();
+		this.texte = taDefinition.getText();
+		this.nomCategorie = nomCategorie;
 		
 	}
 
@@ -60,18 +65,34 @@ public class ControleurDef implements EventHandler<MouseEvent> {
 		
 		if(event.getSource() == btnValidite) {
 			
-			if(verifierNom() && null != texte && !("".equals(texte))) {
-
-				Main.categories[0] = new Categorie("test", null);
-				Main.categories[0].getDefinitions().add(new Definition(nom, texte));
+			if(verifierNom() && verifierTexte() && vérifierCategorie()) {
 				
-				System.out.println(Main.categories[0].getDefinitions().toArray()[0]);
+				this.creerNouvelleDefinition(nom, texte, nomCategorie);
 				
 				AjoutDefinition addDef = new AjoutDefinition(Main.fenetre, this.nom);
 				addDef.afficherSceneConfirmation();
+				
+				
+			}
+			
+			else {
+				Alert erreur = new Alert(AlertType.ERROR);
+				erreur.setTitle("Erreur d'entrée d'information(s)");
+				erreur.setHeaderText("Erreur d'identification du nom ou du texte de la défintion");
+				erreur.setContentText("Veuillez saisir un nom et un texte pour la définition que vous souhaitez créer.");
+				
+				erreur.showAndWait();
 			}
 		}
 		
+	}
+
+	private boolean vérifierCategorie() {
+		return null != nomCategorie;
+	}
+
+	private boolean verifierTexte() {
+		return null != texte && !("".equals(texte));
 	}
 
 	private boolean verifierNom() {
