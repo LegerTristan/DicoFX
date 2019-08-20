@@ -10,12 +10,10 @@ import javafx.scene.control.ComboBox;
 
 public interface ChargementComboBox {
 
-	public default ComboBox<String>chargerComboBox(){
+	public default ComboBox<String>chargerComboBoxCategories(){
 			
 			ComboBox<String> cb = new ComboBox<String>();
 			List<String> test2 = new ArrayList<String>();
-			
-			
 			
 			for(int i = 0; i < Main.categories.length; i++) {
 				
@@ -30,6 +28,23 @@ public interface ChargementComboBox {
 			cb.setItems(test);
 			
 		return cb;
+	}
+	
+	public default ComboBox<String>chargerComboBoxDefinition(int i){
+		
+		ComboBox<String> cb = new ComboBox<String>();
+		List<String> list = new ArrayList<String>();
+		
+		for(int j = 0; j < Main.categories[i].getDefinitions().size(); j++) {
+				
+			list.add(Main.categories[i].getDefinitions().get(j).getNom());
+				
+		}
+		
+		ObservableList<String> test = FXCollections.observableList(list);
+		cb.setItems(test);
+		
+	return cb;
 	}
 
 }

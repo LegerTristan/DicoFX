@@ -1,15 +1,8 @@
 package fr.glossairedef.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import fr.glossairedef.vue.Main;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ComboBox;
 
 public interface GestionCategorie {
 
@@ -55,12 +48,16 @@ public interface GestionCategorie {
 		for(int i = 0; i < Main.categories.length; i++) {
 			
 			if(null != Main.categories[i]) {
-				if(nomCategorie.equals(Main.categories[i].getNom())){
+				if(verifierIdenticiteDuNom(nomCategorie, i)){
 					
 					Main.categories[i] = null;
 				}
 			}
 			
 		}
+	}
+
+	public default boolean verifierIdenticiteDuNom(String nomCategorie, int i) {
+		return nomCategorie.equals(Main.categories[i].getNom());
 	}
 }

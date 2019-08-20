@@ -11,30 +11,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class ControleurCategorie implements EventHandler<MouseEvent>, GestionCategorie {
+public class ControleurAjoutCategorie implements EventHandler<MouseEvent>, GestionCategorie {
 
 	private Stage fenetre;
 	
 	private Button btnClicked;
-	private Button btnRetour;
 	private Button btnValidite;
 
 	private String nomCategorie;
 	
-	public ControleurCategorie(Button btn) {
-	
-		this.btnRetour = btn;
-	 
-	}
-
-	public ControleurCategorie(Stage fenetre, Button btn) {
+	public ControleurAjoutCategorie(Stage fenetre, Button btn) {
 
 		this.fenetre = fenetre;
 		this.btnClicked = btn;
 		
 	}
 
-	public ControleurCategorie(Button btn, TextField nom) {
+	public ControleurAjoutCategorie(Button btn, TextField nom) {
 
 		this.btnValidite = btn;
 		this.nomCategorie = nom.getText();
@@ -48,13 +41,6 @@ public class ControleurCategorie implements EventHandler<MouseEvent>, GestionCat
 			
 			AjoutCategorie addCategorie = new AjoutCategorie(this.fenetre);
 			addCategorie.afficherScene();
-			
-		}
-		
-		if(event.getSource() == btnRetour) {
-			
-			Main glossaire = new Main();
-			glossaire.afficherScene(Main.fenetre);
 			
 		}
 		

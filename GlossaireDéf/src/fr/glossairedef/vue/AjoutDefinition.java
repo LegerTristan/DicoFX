@@ -1,6 +1,7 @@
 package fr.glossairedef.vue;
 
 import fr.glossairedef.controleur.ControleurDef;
+import fr.glossairedef.controleur.ControleurRetour;
 import fr.glossairedef.models.ChargementComboBox;
 import fr.glossairedef.models.Constante;
 import javafx.geometry.Insets;
@@ -78,7 +79,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		
 		cbCategories = new ComboBox<String>();
 		cbCategories.setPrefSize(Constante.LARGEUR_COMBOBOX, Constante.HAUTEUR_COMBOBOX);
-		cbCategories = this.chargerComboBox();
+		cbCategories = this.chargerComboBoxCategories();
 		
 		if(cbCategories.getItems().isEmpty()) {
 			
@@ -131,7 +132,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(btnRetour));
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));
 		
 		lbInfoBot= new Label("Quelle nouvelle définition tu veux ajouter aujourd'hui ? ");
 		lbInfoBot.setMaxWidth(Constante.LARGEUR_FENETRE);
@@ -205,7 +206,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(btnRetour));	
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
 		
 		vbConfirmation.getChildren().addAll(lbConfirmation, btnRetour);
 		vbConfirmation.setAlignment(Pos.CENTER);

@@ -1,6 +1,6 @@
 package fr.glossairedef.vue;
 
-import fr.glossairedef.controleur.ControleurCategorie;
+import fr.glossairedef.controleur.ControleurRetour;
 import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.models.ChargementComboBox;
 import fr.glossairedef.models.Constante;
@@ -44,7 +44,8 @@ public class SuppCategorie implements ChargementComboBox {
 	private Button btnRetour;
 	
 	private Label lbInfoBot;
-	private Label lbListe;
+	private Label lbListeCategorie;
+	private Label lbListeDef;
 	private Label lbConfirmation;
 	
 	private ComboBox<String> cbCategories;
@@ -73,7 +74,8 @@ public class SuppCategorie implements ChargementComboBox {
 		
 		cbCategories = new ComboBox<String>();
 		cbCategories.setPrefSize(Constante.LARGEUR_COMBOBOX, Constante.HAUTEUR_COMBOBOX);
-		cbCategories = this.chargerComboBox();
+		cbCategories = this.chargerComboBoxCategories();
+		
 		
 		if(cbCategories.getItems().isEmpty()) {
 			
@@ -90,6 +92,7 @@ public class SuppCategorie implements ChargementComboBox {
 		}
 		
 	}
+
 
 	private void renvoieErreur() {
 
@@ -123,10 +126,10 @@ public class SuppCategorie implements ChargementComboBox {
 		lbInfoBot.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
 		lbInfoBot.setFont(new Font(15));
 		
-		lbListe= new Label("Liste des catégories : ");
-		lbListe.setMaxWidth(Constante.LARGEUR_FENETRE);
-		lbListe.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
-		lbListe.setFont(new Font(15));
+		lbListeCategorie= new Label("Liste des catégories : ");
+		lbListeCategorie.setMaxWidth(Constante.LARGEUR_FENETRE);
+		lbListeCategorie.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
+		lbListeCategorie.setFont(new Font(15));
 		
 		btnSupp = new Button("Supprimer cette catégorie");
 		btnSupp.setPadding(new Insets(20));
@@ -138,9 +141,9 @@ public class SuppCategorie implements ChargementComboBox {
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(btnRetour));	
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
 
-		tableau.add(lbListe, 0, 0);
+		tableau.add(lbListeCategorie, 0, 0);
 		tableau.add(cbCategories, 1, 0);
 		
 	}
@@ -158,8 +161,8 @@ public class SuppCategorie implements ChargementComboBox {
 		lbInfoBot.setAlignment(Pos.CENTER);
 		lbInfoBot.setTextAlignment(TextAlignment.CENTER);
 		
-		root.setCenter(tableau);
 		root.setTop(lbInfoBot);
+		root.setCenter(tableau);
 		root.setBottom(hbBtn);
 		
 	}
@@ -182,7 +185,7 @@ public class SuppCategorie implements ChargementComboBox {
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(btnRetour));	
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
 		
 		vbConfirmation.getChildren().addAll(lbConfirmation, btnRetour);
 		vbConfirmation.setAlignment(Pos.CENTER);
@@ -191,6 +194,5 @@ public class SuppCategorie implements ChargementComboBox {
 		fenetre.setScene(scConfirmation);
 		
 	}
-
 
 }

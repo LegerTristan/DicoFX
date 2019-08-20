@@ -1,6 +1,7 @@
 package fr.glossairedef.vue;
 
-import fr.glossairedef.controleur.ControleurCategorie;
+import fr.glossairedef.controleur.ControleurAjoutCategorie;
+import fr.glossairedef.controleur.ControleurConsulterCategorie;
 import fr.glossairedef.controleur.ControleurDef;
 import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.models.Categorie;
@@ -40,8 +41,11 @@ public class Main extends Application {
 	private Button btnGestionCategorie;
 	private Button btnAddCategorie;
 	private Button btnSuppCategorie;
+	private Button btnConsulterCategorie;
 	
 	private Button btnReviser;
+	private Button btnReviserDef;
+	private Button btnReviserNom;
 	
 	private Button btnQuitter;
 	
@@ -95,7 +99,7 @@ public class Main extends Application {
 		btnReviser.setPadding(new Insets(20, 70, 20, 70));
 		btnReviser.setFont(new Font(15));
 		
-		//btnReviser.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> fenetre.setScene(this.afficherMenuDefinition()));
+		btnReviser.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> fenetre.setScene(this.afficherMenuRevision()));
 		btnReviser.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("T'es d'humeur à réviser ? Parce que moi non :D !"));
 		btnReviser.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
@@ -125,14 +129,14 @@ public class Main extends Application {
 						BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
 						CornerRadii.EMPTY, new BorderWidths(3), null)));
 	}
-	
+
 	private void positionnement() {
 		
-		btnGestionDef.setTranslateY(-50);
+		btnGestionDef.setTranslateY(-40);
 		
-		btnReviser.setTranslateY(50);
+		btnReviser.setTranslateY(40);
 		
-		btnQuitter.setTranslateY(100);
+		btnQuitter.setTranslateY(80);
 		
 		lbAccueil.setTextAlignment(TextAlignment.CENTER);
 		lbAccueil.setAlignment(Pos.BOTTOM_CENTER);
@@ -164,11 +168,11 @@ public class Main extends Application {
 		btnAddCategorie.setPadding(new Insets(20));
 		btnAddCategorie.setFont(new Font(15));
 		
-		btnAddCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(Main.fenetre, this.btnAddCategorie));
+		btnAddCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurAjoutCategorie(Main.fenetre, this.btnAddCategorie));
 		btnAddCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ajoute une nouvelle catégorie à ton glossaire pour ranger tes définitions :D !"));
 		btnAddCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
-		btnAddCategorie.setTranslateY(-100);
+		btnAddCategorie.setTranslateY(-80);
 		
 		btnSuppCategorie = new Button("Supprimer une catégorie");
 		btnSuppCategorie.setPadding(new Insets(20));
@@ -178,9 +182,17 @@ public class Main extends Application {
 		btnSuppCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Ce bouton te permet de supprimer une catégorie dont tu ne vois plus l'utilité."));
 		btnSuppCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
-		btnSuppCategorie.setTranslateY(- 50);
+		btnSuppCategorie.setTranslateY(- 40);
 		
-		btnQuitter.setTranslateY(00);
+		btnConsulterCategorie = new Button("Consulter des catégories");
+		btnConsulterCategorie.setPadding(new Insets(20));
+		btnConsulterCategorie.setFont(new Font(15));
+		
+		btnConsulterCategorie.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurConsulterCategorie(Main.fenetre, this.btnConsulterCategorie));
+		btnConsulterCategorie.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Jette un coup d'oeil au catégorie que tu as déjà crée :) !"));
+		btnConsulterCategorie.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnQuitter.setTranslateY(40);
 		
 		btnQuitter.setOnMouseClicked((MouseEvent event) -> {this.initialisation(); this.positionnement();});
 		btnQuitter.setText("Revenir au menu précédent");
@@ -189,7 +201,7 @@ public class Main extends Application {
 		lbAccueil.setText("Tu veux qu'on gère les catégories aujourd'hui :) ?");
 		
 		vbBtn.getChildren().removeAll(btnGestionCategorie, btnGestionDef, btnQuitter, btnReviser);
-		vbBtn.getChildren().addAll(btnAddCategorie, btnSuppCategorie, btnQuitter);
+		vbBtn.getChildren().addAll(btnAddCategorie, btnSuppCategorie, btnConsulterCategorie, btnQuitter);
 		
 		scMenu.setRoot(root);
 
@@ -218,6 +230,42 @@ public class Main extends Application {
 		
 		vbBtn.getChildren().removeAll(btnGestionCategorie, btnGestionDef, btnReviser);
 		vbBtn.getChildren().addAll(btnAddDef);
+		
+		scMenu.setRoot(root);
+
+		return scMenu;
+	}
+	
+	private Scene afficherMenuRevision() {
+
+		btnReviserNom = new Button("Réviser le nom");
+		btnReviserNom.setPadding(new Insets(20));
+		btnReviserNom.setFont(new Font(15));
+		
+		//btnReviserNom.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(Main.fenetre, this.btnAddDef));
+		btnReviserNom.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne le nom et toi tu me donnes la définition MOT POUR MOT d'accord :D ?"));
+		btnReviserNom.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnReviserNom.setTranslateY(-150);
+		
+		btnReviserDef = new Button("Réviser la définition");
+		btnReviserDef.setPadding(new Insets(20));
+		btnReviserDef.setFont(new Font(15));
+		
+		//btnReviserNom.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(Main.fenetre, this.btnAddDef));
+		btnReviserDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne la définition et toi tu me donnes le nom de la définition d'accord :D ?"));
+		btnReviserDef.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+		
+		btnQuitter.setTranslateY(150);
+		
+		btnQuitter.setOnMouseClicked((MouseEvent event) -> {this.initialisation(); this.positionnement();});
+		btnQuitter.setText("Revenir au menu précédent");
+		btnQuitter.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Clique sur ce bouton et tu reviendras au menu précédent ;) !"));
+		
+		lbAccueil.setText("Je te le dis d'avance, tu recommences jusqu'à avoir la note maximale !");
+		
+		vbBtn.getChildren().removeAll(btnGestionCategorie, btnGestionDef, btnReviser);
+		vbBtn.getChildren().addAll(btnReviserDef, btnReviserNom);
 		
 		scMenu.setRoot(root);
 

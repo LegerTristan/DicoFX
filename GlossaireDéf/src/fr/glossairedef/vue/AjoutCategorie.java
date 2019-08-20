@@ -1,6 +1,7 @@
 package fr.glossairedef.vue;
 
-import fr.glossairedef.controleur.ControleurCategorie;
+import fr.glossairedef.controleur.ControleurAjoutCategorie;
+import fr.glossairedef.controleur.ControleurRetour;
 import fr.glossairedef.models.Constante;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -102,13 +103,13 @@ public class AjoutCategorie {
 		btnAdd.setPadding(new Insets(20));
 		btnAdd.setFont(new Font(15));
 		
-		btnAdd.setOnMouseClicked((MouseEvent event) -> new ControleurCategorie(btnAdd, tfNom).handle(event));
+		btnAdd.setOnMouseClicked((MouseEvent event) -> new ControleurAjoutCategorie(btnAdd, tfNom).handle(event));
 		
 		btnRetour = new Button("Revenir en arrière");
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(btnRetour));	
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
 	}
 	
 	private void positionnement() {
@@ -150,7 +151,7 @@ public class AjoutCategorie {
 		btnRetour.setPadding(new Insets(20));
 		btnRetour.setFont(new Font(15));
 		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurCategorie(btnRetour));	
+		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
 		
 		vbConfirmation.getChildren().addAll(lbConfirmation, btnRetour);
 		vbConfirmation.setAlignment(Pos.CENTER);

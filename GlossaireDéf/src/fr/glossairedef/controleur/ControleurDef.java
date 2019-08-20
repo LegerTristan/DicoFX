@@ -1,7 +1,5 @@
 package fr.glossairedef.controleur;
 
-import fr.glossairedef.models.Categorie;
-import fr.glossairedef.models.Definition;
 import fr.glossairedef.models.GestionDefinition;
 import fr.glossairedef.vue.AjoutDefinition;
 import fr.glossairedef.vue.Main;
@@ -19,17 +17,11 @@ public class ControleurDef implements EventHandler<MouseEvent>, GestionDefinitio
 	private Stage fenetre;
 	
 	private Button btnClicked;
-	private Button btnRetour;
 	private Button btnValidite;
 	
 	private String nom;
 	private String texte;
 	private String nomCategorie;
-	
-	public ControleurDef(Button btn) {
-
-		this.btnRetour = btn;
-	}
 	
 	public ControleurDef(Stage fenetre, Button btn) {
 
@@ -55,12 +47,6 @@ public class ControleurDef implements EventHandler<MouseEvent>, GestionDefinitio
 			
 			AjoutDefinition addDef = new AjoutDefinition(this.fenetre);
 			addDef.afficherScene();
-		}
-		
-		if(event.getSource() == btnRetour) {
-			
-			Main glossaire = new Main();
-			glossaire.afficherScene(Main.fenetre);
 		}
 		
 		if(event.getSource() == btnValidite) {
