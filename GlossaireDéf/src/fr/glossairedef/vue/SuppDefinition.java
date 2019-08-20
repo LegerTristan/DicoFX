@@ -1,7 +1,7 @@
 package fr.glossairedef.vue;
 
-import fr.glossairedef.controleur.ControleurAjoutDef;
 import fr.glossairedef.controleur.ControleurRetour;
+import fr.glossairedef.controleur.ControleurSuppDef;
 import fr.glossairedef.models.ChargementComboBox;
 import fr.glossairedef.models.Constante;
 import javafx.geometry.Insets;
@@ -11,9 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
@@ -30,7 +27,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class AjoutDefinition implements ChargementComboBox {
+public class SuppDefinition implements ChargementComboBox {
 
 	private Stage fenetre;
 	
@@ -43,7 +40,7 @@ public class AjoutDefinition implements ChargementComboBox {
 	private HBox hbBtn;
 	private VBox vbConfirmation;
 	
-	private Button btnAdd;
+	private Button btnSupp;
 	private Button btnRetour;
 	
 	private Label lbInfoBot;
@@ -52,27 +49,24 @@ public class AjoutDefinition implements ChargementComboBox {
 	private Label lbCategories;
 	private Label lbConfirmation;
 	
-	private TextField tfNom;
-	
-	private TextArea taDefinition;
-	
 	private ComboBox<String> cbCategories;
 	
 	private String nomDef;
+
+	private ComboBox<String> cbDefinitions;
 	
-	public AjoutDefinition(Stage fenetre) {
+	public SuppDefinition(Stage fenetre) {
 
 		this.fenetre = fenetre;
 	}
 
-	public AjoutDefinition(Stage fenetre, String nom) {
+	public SuppDefinition(Stage fenetre, String nomDefinition) {
 
 		this(fenetre);
-		this.nomDef = nom;
+		this.nomDef = nomDefinition;
 	}
 
 	public void afficherScene() {
-		
 		root = new BorderPane();
 
 		scAjoutDef = new Scene(root, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
@@ -80,6 +74,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		cbCategories = new ComboBox<String>();
 		cbCategories.setPrefSize(Constante.LARGEUR_COMBOBOX, Constante.HAUTEUR_COMBOBOX);
 		cbCategories = this.chargerComboBoxCategories();
+		cbCategories.setOnAction((event) -> { this.chargerCbDef();});
 		
 		if(cbCategories.getItems().isEmpty()) {
 			
@@ -118,11 +113,11 @@ public class AjoutDefinition implements ChargementComboBox {
 						BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
 						CornerRadii.EMPTY, new BorderWidths(3), null)));
 		
-		btnAdd = new Button("Valider");
-		btnAdd.setPadding(new Insets(20));
-		btnAdd.setFont(new Font(15));
+		btnSupp = new Button("Supprimer cette définition");
+		btnSupp.setPadding(new Insets(20));
+		btnSupp.setFont(new Font(15));
 		
-		btnAdd.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> new ControleurAjoutDef(btnAdd, tfNom, taDefinition, cbCategories.getSelectionModel().getSelectedItem()).handle(event));
+		btnSupp.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> new ControleurSuppDef(btnSupp, cbCategories.getSelectionModel().getSelectedIndex(), cbDefinitions.getSelectionModel().getSelectedItem()).handle(event));
 		
 		btnRetour = new Button("Revenir en arrière");
 		btnRetour.setPadding(new Insets(20));
@@ -130,7 +125,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		
 		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));
 		
-		lbInfoBot= new Label("Quelle nouvelle définition tu veux ajouter aujourd'hui ? ");
+		lbInfoBot= new Label("Quelle nouvelle définition tu veux supprimer si cruellement aujourd'hui :'( ? ");
 		lbInfoBot.setMaxWidth(Constante.LARGEUR_FENETRE);
 		lbInfoBot.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
 		lbInfoBot.setFont(new Font(15));
@@ -146,33 +141,21 @@ public class AjoutDefinition implements ChargementComboBox {
 		lbCategories.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
 		lbCategories.setFont(new Font(15));
 		
-		
-		tfNom = new TextField();
-		tfNom.setPromptText("InfoBot");
-		tfNom.setTooltip(new Tooltip("Entre ici le nom de ta définition !"));
-		
-		taDefinition = new TextArea();
-		taDefinition.setTooltip(new Tooltip("Entre ici ta définition !"));
-		taDefinition.setPromptText("Bot crée à but informatif par le créateur de cette application. Outre son refrain routinier, il n'est pas très utile...");
-		
-		
+		cbDefinitions = new ComboBox<String>();
+		cbDefinitions.setPrefSize(Constante.LARGEUR_COMBOBOX, Constante.HAUTEUR_COMBOBOX);
 		
 	}
 	
 	private void positionnement() {
 
-		tableau.add(lbNom, 0, 0);
-		tableau.add(tfNom, 1, 0);
-		tableau.add(lbDefinition, 0, 1);
-		tableau.add(taDefinition, 1, 1);
-		tableau.add(lbCategories, 0, 2);
-		tableau.add(cbCategories, 1, 2);
+		tableau.add(lbCategories, 0, 0);
+		tableau.add(cbCategories, 1, 0);
 		
 		tableau.setAlignment(Pos.CENTER);
 		tableau.setVgap(15);
 		tableau.setHgap(15);
 		
-		hbBtn.getChildren().addAll(btnAdd, btnRetour);
+		hbBtn.getChildren().addAll(btnSupp, btnRetour);
 		hbBtn.setAlignment(Pos.CENTER);
 		hbBtn.setSpacing(50);
 		
@@ -191,7 +174,7 @@ public class AjoutDefinition implements ChargementComboBox {
 		
 		scConfirmation = new Scene(vbConfirmation, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
 		
-		lbConfirmation = new Label("La définition " + nomDef + " a bien été crée :D !" );
+		lbConfirmation = new Label("La définition " + nomDef + " a bien été supprimée :D !" );
 		lbConfirmation.setMaxWidth(Constante.LARGEUR_FENETRE);
 		lbConfirmation.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
 		lbConfirmation.setFont(new Font(15));
@@ -210,6 +193,28 @@ public class AjoutDefinition implements ChargementComboBox {
 		
 		fenetre.setScene(scConfirmation);
 		
+	}
+	
+	private void chargerCbDef() {
+
+		if(null != cbCategories.getSelectionModel().getSelectedItem()) {
+			
+			this.cbDefinitions = this.chargerComboBoxDefinition(cbCategories.getSelectionModel().getSelectedIndex());
+
+			tableau = new GridPane();
+			
+			tableau.setAlignment(Pos.CENTER);
+			tableau.setVgap(15);
+			tableau.setHgap(15);
+			
+			tableau.add(lbCategories, 0, 0);
+			tableau.add(cbCategories, 1, 0);
+			tableau.add(lbDefinition, 0, 1);
+			tableau.add(cbDefinitions, 1, 1);
+			
+			root.setCenter(tableau);
+			
+		}
 	}
 
 }

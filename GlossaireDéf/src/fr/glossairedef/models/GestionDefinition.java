@@ -19,4 +19,19 @@ public interface GestionDefinition {
 			}
 		}
 	}
+	
+	public default void supprimerDefinition(String nomDefinition, int idCategorie) {
+		
+		for(int j = 0; j < Main.categories[idCategorie].getDefinitions().size(); j++) {
+			
+			if(null != Main.categories[idCategorie]) {
+				if(nomDefinition.equals(Main.categories[idCategorie].getDefinitions().get(j).getNom())){
+
+					Main.categories[idCategorie].getDefinitions().remove(j);
+					
+				}
+			}
+		}
+		
+	}
 }

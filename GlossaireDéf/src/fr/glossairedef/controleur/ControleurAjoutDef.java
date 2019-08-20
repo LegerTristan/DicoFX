@@ -12,7 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class ControleurDef implements EventHandler<MouseEvent>, GestionDefinition{
+public class ControleurAjoutDef implements EventHandler<MouseEvent>, GestionDefinition{
 
 	private Stage fenetre;
 	
@@ -23,7 +23,7 @@ public class ControleurDef implements EventHandler<MouseEvent>, GestionDefinitio
 	private String texte;
 	private String nomCategorie;
 	
-	public ControleurDef(Stage fenetre, Button btn) {
+	public ControleurAjoutDef(Stage fenetre, Button btn) {
 
 
 		this.btnClicked = btn;
@@ -31,7 +31,7 @@ public class ControleurDef implements EventHandler<MouseEvent>, GestionDefinitio
 		
 	}
 
-	public ControleurDef(Button btn, TextField tfNom, TextArea taDefinition, String nomCategorie) {
+	public ControleurAjoutDef(Button btn, TextField tfNom, TextArea taDefinition, String nomCategorie) {
 
 		this.btnValidite = btn;
 		this.nom = tfNom.getText();

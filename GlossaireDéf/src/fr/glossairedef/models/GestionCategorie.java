@@ -50,7 +50,9 @@ public interface GestionCategorie {
 			if(null != Main.categories[i]) {
 				if(verifierIdenticiteDuNom(nomCategorie, i)){
 					
-					Main.categories[i] = null;
+					for(int j = 0; j < Main.categories[i].getDefinitions().size(); j++) {
+						Main.categories[i].getDefinitions().remove(j);
+					}
 				}
 			}
 			

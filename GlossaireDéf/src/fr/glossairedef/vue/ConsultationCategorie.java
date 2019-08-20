@@ -6,7 +6,6 @@ import fr.glossairedef.models.Constante;
 import fr.glossairedef.models.GestionCategorie;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -136,7 +135,7 @@ public class ConsultationCategorie implements ChargementComboBox, GestionCategor
 		lbListeDef.setFont(new Font(15));
 		
 		lbPresentDef = new Label("Définitions présentes dans cette catégorie : ");
-		lbPresentDef.setMaxWidth(Constante.LARGEUR_FENETRE / 4);
+		lbPresentDef.setMaxWidth(Constante.LARGEUR_FENETRE / 2);
 		lbPresentDef.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
 		lbPresentDef.setFont(new Font(15));
 		
@@ -182,6 +181,8 @@ public class ConsultationCategorie implements ChargementComboBox, GestionCategor
 		lbListeDef.setAlignment(Pos.CENTER);
 		lbListeDef.setTextAlignment(TextAlignment.CENTER);
 		
+		lbPresentDef.setAlignment(Pos.CENTER);
+		
 		root.setTop(lbInfoBot);
 		root.setCenter(tableau);
 		root.setRight(vbDef);
@@ -215,9 +216,20 @@ public class ConsultationCategorie implements ChargementComboBox, GestionCategor
 			
 			this.cbDefinitions = this.chargerComboBoxDefinition(cbCategories.getSelectionModel().getSelectedIndex());
 
+			tableau = new GridPane();
+			tableau.setMaxHeight(Constante.HAUTEUR_FENETRE / 2);
+			tableau.setPrefHeight(Constante.HAUTEUR_FENETRE / 3);
+			
+			tableau.setAlignment(Pos.CENTER);
+			tableau.setVgap(15);
+			tableau.setHgap(15);
+			
+			tableau.add(lbListeCategorie, 0, 0);
+			tableau.add(cbCategories, 1, 0);
 			tableau.add(lbListeDef, 0, 1);
 			tableau.add(cbDefinitions, 1, 1);
 			
+			root.setCenter(tableau);
 		}
 	}
 	
