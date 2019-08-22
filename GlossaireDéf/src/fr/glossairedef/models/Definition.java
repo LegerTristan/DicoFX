@@ -1,7 +1,10 @@
 package fr.glossairedef.models;
 
-public class Definition {
+import java.io.Serializable;
 
+public class Definition implements Serializable {
+
+ static final long serialVersionUID = 1L;
 	private String nom;
 	private String definition;
 	
@@ -14,5 +17,9 @@ public class Definition {
 
 	public String getNom() {
 		return nom;
+	}
+
+	public String getDefinition() {
+		return definition;
 	}
 }

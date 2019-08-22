@@ -6,6 +6,7 @@ import fr.glossairedef.controleur.ControleurAjoutDef;
 import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.controleur.ControleurSuppDef;
 import fr.glossairedef.models.Categorie;
+import fr.glossairedef.models.ChargementAutomatique;
 import fr.glossairedef.models.Constante;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -287,7 +288,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 
 		categories = new Categorie[10];
-		
+		ChargementAutomatique.autoLoad();
 		launch(args);
 
 	}

@@ -19,7 +19,7 @@ public class ControleurSuppDef implements EventHandler<MouseEvent>, GestionDefin
 	private Button btnClicked;
 	private Button btnValide;
 	
-	private int idCategorie;
+	private String nomCategorie;
 	
 	private String nomDefinition;
 	
@@ -30,10 +30,10 @@ public class ControleurSuppDef implements EventHandler<MouseEvent>, GestionDefin
 		this.btnClicked = btn;
 	}
 	
-	public ControleurSuppDef(Button btn, int idCategorie, String nom2) {
+	public ControleurSuppDef(Button btn, String nomCategorie, String nom2) {
 
 		this.btnValide = btn;
-		this.idCategorie = idCategorie;
+		this.nomCategorie = nomCategorie;
 		this.nomDefinition = nom2;
 		
 	}
@@ -60,7 +60,7 @@ public class ControleurSuppDef implements EventHandler<MouseEvent>, GestionDefin
 				
 				if(erreur.getResult() == ButtonType.OK) {
 					
-					this.supprimerDefinition(nomDefinition, idCategorie);
+					this.supprimerDefinition(nomDefinition, nomCategorie);
 					
 					SuppDefinition suppDefinition = new SuppDefinition(Main.fenetre, this.nomDefinition);
 					suppDefinition.afficherSceneConfirmation();

@@ -33,12 +33,7 @@ public interface GestionCategorie {
 			erreur.showAndWait();
 		}
 		
-		for( i = 0; i < Main.categories.length; i++) {
-			
-			System.out.println(i + " " + Main.categories[i]);
-		}
-		
-		System.out.println("\n");
+		SauvegardeAutomatique.autoSave();
 		
 		return false;
 	}
@@ -53,13 +48,30 @@ public interface GestionCategorie {
 					for(int j = 0; j < Main.categories[i].getDefinitions().size(); j++) {
 						Main.categories[i].getDefinitions().remove(j);
 					}
+					Main.categories[i] = null;
 				}
 			}
 			
 		}
+		SauvegardeAutomatique.autoSave();
 	}
 
 	public default boolean verifierIdenticiteDuNom(String nomCategorie, int i) {
 		return nomCategorie.equals(Main.categories[i].getNom());
+	}
+	
+	public default int determinerIdCategorie(String nomCategorie) {
+		
+		for(int i = 0; i < Main.categories.length; i++) {
+			
+			if(null != Main.categories[i]) {
+				if(verifierIdenticiteDuNom(nomCategorie, i)){
+					
+					return i;
+		
+				}
+			}
+		}
+		return -1;
 	}
 }

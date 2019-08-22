@@ -1,49 +1,24 @@
 package fr.glossairedef.vue;
 
 import fr.glossairedef.controleur.ControleurAjoutCategorie;
-import fr.glossairedef.controleur.ControleurRetour;
 import fr.glossairedef.models.Constante;
+import fr.glossairedef.models.FenetreEdition;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class AjoutCategorie {
+public class AjoutCategorie extends FenetreEdition {
 
-	private Stage fenetre;
-	
-	private Scene scAjoutCategorie;
-	private Scene scConfirmation;
-	
-	private BorderPane root;
-	private GridPane tableau;
-	
-	private VBox vbConfirmation;
-	private HBox hbBtn;
-	
 	private Button btnAdd;
-	private Button btnRetour;
 	
-	private Label lbInfoBot;
 	private Label lbNom;
-	private Label lbConfirmation;
 	
 	private TextField tfNom;
 	
@@ -52,7 +27,6 @@ public class AjoutCategorie {
 	public AjoutCategorie(Stage fenetre) {
 
 		this.fenetre = fenetre;
-		
 	}
 	
 	public AjoutCategorie(Stage fenetre, String nom) {
@@ -65,32 +39,20 @@ public class AjoutCategorie {
 		
 		root = new BorderPane();
 
-		scAjoutCategorie = new Scene(root, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
+		scPrincipal = new Scene(root, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
 		
 		this.initialisation();
 		
+		super.miseEnPageCommune();
+		
 		this.positionnement();
 		
-		fenetre.setScene(scAjoutCategorie);
-		
+		fenetre.setScene(scPrincipal);
 	}
 
 	private void initialisation() {
-
-		tableau = new GridPane();
-		
-		hbBtn = new HBox();
-		hbBtn.setMaxHeight(Constante.HAUTEUR_FENETRE / 5);
-		hbBtn.setPrefHeight(Constante.HAUTEUR_FENETRE / 5);
-		hbBtn.setBorder(new Border( 
-				new BorderStroke(Color.BLACK,Color.BLACK, Color.BLACK, Color.BLACK,
-						BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
-						CornerRadii.EMPTY, new BorderWidths(3), null)));
 		
 		lbInfoBot= new Label("Tu veux créer une nouvelle catégorie aujourd'hui ?");
-		lbInfoBot.setMaxWidth(Constante.LARGEUR_FENETRE);
-		lbInfoBot.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
-		lbInfoBot.setFont(new Font(15));
 		
 		lbNom= new Label("Nom : ");
 		lbNom.setFont(new Font(15));
@@ -104,12 +66,6 @@ public class AjoutCategorie {
 		btnAdd.setFont(new Font(15));
 		
 		btnAdd.setOnMouseClicked((MouseEvent event) -> new ControleurAjoutCategorie(btnAdd, tfNom).handle(event));
-		
-		btnRetour = new Button("Revenir en arrière");
-		btnRetour.setPadding(new Insets(20));
-		btnRetour.setFont(new Font(15));
-		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
 	}
 	
 	private void positionnement() {
@@ -117,47 +73,13 @@ public class AjoutCategorie {
 		tableau.add(lbNom, 0, 0);
 		tableau.add(tfNom, 1, 0);
 		
-		tableau.setAlignment(Pos.CENTER);
-		tableau.setVgap(15);
-		tableau.setHgap(25);
-		
 		hbBtn.getChildren().addAll(btnAdd, btnRetour);
-		hbBtn.setAlignment(Pos.CENTER);
-		hbBtn.setSpacing(50);
-		
-		lbInfoBot.setAlignment(Pos.CENTER);
-		lbInfoBot.setTextAlignment(TextAlignment.CENTER);
-		
-		root.setCenter(tableau);
-		root.setTop(lbInfoBot);
-		root.setBottom(hbBtn);
-
 	}
 	
 	public void afficherSceneConfirmation() {
 		
-		vbConfirmation = new VBox();
-		
-		scConfirmation = new Scene(vbConfirmation, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
-		
 		lbConfirmation = new Label("La catégorie " + nomCategorie + " a bien été crée :D !" );
-		lbConfirmation.setMaxWidth(Constante.LARGEUR_FENETRE);
-		lbConfirmation.setPrefHeight(Constante.HAUTEUR_FENETRE / 10);
-		lbConfirmation.setFont(new Font(15));
 		
-		lbConfirmation.setAlignment(Pos.CENTER);
-		
-		btnRetour = new Button("Revenir au menu");
-		btnRetour.setPadding(new Insets(20));
-		btnRetour.setFont(new Font(15));
-		
-		btnRetour.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRetour(btnRetour));	
-		
-		vbConfirmation.getChildren().addAll(lbConfirmation, btnRetour);
-		vbConfirmation.setAlignment(Pos.CENTER);
-		vbConfirmation.setSpacing(50);
-		
-		fenetre.setScene(scConfirmation);
-		
+		super.miseEnPageConfirmationCommune();
 	}
 }

@@ -2,7 +2,7 @@ package fr.glossairedef.models;
 
 import fr.glossairedef.vue.Main;
 
-public interface GestionDefinition {
+public interface GestionDefinition extends GestionCategorie {
 
 	public default void creerNouvelleDefinition(String nom, String texte, String nomCategorie) {
 		
@@ -18,9 +18,12 @@ public interface GestionDefinition {
 				}
 			}
 		}
+		SauvegardeAutomatique.autoSave();
 	}
 	
-	public default void supprimerDefinition(String nomDefinition, int idCategorie) {
+	public default void supprimerDefinition(String nomDefinition, String nomCategorie) {
+		
+		int idCategorie = determinerIdCategorie(nomCategorie);
 		
 		for(int j = 0; j < Main.categories[idCategorie].getDefinitions().size(); j++) {
 			
@@ -32,6 +35,6 @@ public interface GestionDefinition {
 				}
 			}
 		}
-		
+		SauvegardeAutomatique.autoSave();
 	}
 }
