@@ -7,6 +7,8 @@ import java.util.List;
 public class Categorie implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private int noteMax;
 	private String nom;
 	private List<Definition> definitions;
 	
@@ -14,6 +16,7 @@ public class Categorie implements Serializable {
 		
 		this.nom = nom;
 		this.definitions = new ArrayList<Definition>();
+		this.noteMax = 0;
 		
 	}
 
@@ -25,4 +28,22 @@ public class Categorie implements Serializable {
 		return nom;
 	}
 	
+	public int getNoteMax() {
+		return noteMax;
+	}
+
+	public void augmenteNoteMax() {
+		
+		noteMax = noteMax + 1;
+	}
+	
+	public void diminuerNoteMax() {
+		
+		noteMax = noteMax - 1;
+		
+		if(noteMax < 0) {
+			
+			noteMax = 0;
+		}	
+	}
 }

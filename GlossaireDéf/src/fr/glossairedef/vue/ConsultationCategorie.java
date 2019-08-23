@@ -2,7 +2,7 @@ package fr.glossairedef.vue;
 
 import fr.glossairedef.models.ChargementComboBox;
 import fr.glossairedef.models.Constante;
-import fr.glossairedef.models.FenetreEdition;
+import fr.glossairedef.models.MiseEnPageFenetre;
 import fr.glossairedef.models.GestionCategorie;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -23,7 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class ConsultationCategorie extends FenetreEdition implements ChargementComboBox, GestionCategorie{
+public class ConsultationCategorie extends MiseEnPageFenetre implements ChargementComboBox, GestionCategorie{
 	
 	private VBox vbDef;
 

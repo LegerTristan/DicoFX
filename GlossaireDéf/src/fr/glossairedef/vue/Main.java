@@ -2,6 +2,8 @@ package fr.glossairedef.vue;
 
 import fr.glossairedef.controleur.ControleurAjoutCategorie;
 import fr.glossairedef.controleur.ControleurConsulterCategorie;
+import fr.glossairedef.controleur.ControleurRevisionDef;
+import fr.glossairedef.controleur.ControleurRevisionNom;
 import fr.glossairedef.controleur.ControleurAjoutDef;
 import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.controleur.ControleurSuppDef;
@@ -255,8 +257,8 @@ public class Main extends Application {
 		btnReviserNom.setPadding(new Insets(20));
 		btnReviserNom.setFont(new Font(15));
 		
-		//btnReviserNom.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(Main.fenetre, this.btnAddDef));
-		btnReviserNom.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne le nom et toi tu me donnes la définition MOT POUR MOT d'accord :D ?"));
+		btnReviserNom.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRevisionNom(Main.fenetre, this.btnReviserNom));
+		btnReviserNom.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne la définition et toi tu me donnes le nom de la définition d'accord :D ?"));
 		btnReviserNom.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
 		btnReviserNom.setTranslateY(-150);
@@ -265,9 +267,10 @@ public class Main extends Application {
 		btnReviserDef.setPadding(new Insets(20));
 		btnReviserDef.setFont(new Font(15));
 		
-		//btnReviserDef.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurDef(Main.fenetre, this.btnAddDef));
-		btnReviserDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne la définition et toi tu me donnes le nom de la définition d'accord :D ?"));
+		btnReviserDef.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRevisionDef(Main.fenetre, this.btnReviserDef));
+		btnReviserDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne le nom et toi tu me donnes la définition MOT POUR MOT d'accord :D ?"));
 		btnReviserDef.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
+
 		
 		btnQuitter.setTranslateY(150);
 		

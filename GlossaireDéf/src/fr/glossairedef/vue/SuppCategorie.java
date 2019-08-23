@@ -3,7 +3,7 @@ package fr.glossairedef.vue;
 import fr.glossairedef.controleur.ControleurSuppCategorie;
 import fr.glossairedef.models.ChargementComboBox;
 import fr.glossairedef.models.Constante;
-import fr.glossairedef.models.FenetreEdition;
+import fr.glossairedef.models.MiseEnPageFenetre;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class SuppCategorie extends FenetreEdition implements ChargementComboBox {
+public class SuppCategorie extends MiseEnPageFenetre implements ChargementComboBox {
 	
 	private Button btnSupp;
 	

@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public abstract class FenetreEdition {
+public abstract class MiseEnPageFenetre {
 
 	protected Stage fenetre;
 	

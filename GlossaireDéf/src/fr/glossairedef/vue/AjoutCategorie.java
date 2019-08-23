@@ -2,7 +2,7 @@ package fr.glossairedef.vue;
 
 import fr.glossairedef.controleur.ControleurAjoutCategorie;
 import fr.glossairedef.models.Constante;
-import fr.glossairedef.models.FenetreEdition;
+import fr.glossairedef.models.MiseEnPageFenetre;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class AjoutCategorie extends FenetreEdition {
+public class AjoutCategorie extends MiseEnPageFenetre {
 
 	private Button btnAdd;
 	

@@ -14,6 +14,7 @@ public interface GestionDefinition extends GestionCategorie {
 				if(nomCategorie.equals(Main.categories[i].getNom())){
 					
 					Main.categories[i].getDefinitions().add(new Definition(nom, texte));
+					Main.categories[i].augmenteNoteMax();
 					
 				}
 			}
@@ -31,6 +32,7 @@ public interface GestionDefinition extends GestionCategorie {
 				if(nomDefinition.equals(Main.categories[idCategorie].getDefinitions().get(j).getNom())){
 
 					Main.categories[idCategorie].getDefinitions().remove(j);
+					Main.categories[idCategorie].diminuerNoteMax();
 					
 				}
 			}
