@@ -2,7 +2,6 @@ package fr.glossairedef.vue;
 
 import fr.glossairedef.controleur.ControleurAjoutCategorie;
 import fr.glossairedef.controleur.ControleurConsulterCategorie;
-import fr.glossairedef.controleur.ControleurRevisionDef;
 import fr.glossairedef.controleur.ControleurRevisionNom;
 import fr.glossairedef.controleur.ControleurAjoutDef;
 import fr.glossairedef.controleur.ControleurSuppCategorie;
@@ -49,8 +48,6 @@ public class Main extends Application {
 	private Button btnConsulterCategorie;
 	
 	private Button btnReviser;
-	private Button btnReviserDef;
-	private Button btnReviserNom;
 	
 	private Button btnQuitter;
 	
@@ -104,7 +101,7 @@ public class Main extends Application {
 		btnReviser.setPadding(new Insets(20, 70, 20, 70));
 		btnReviser.setFont(new Font(15));
 		
-		btnReviser.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> fenetre.setScene(this.afficherMenuRevision()));
+		btnReviser.addEventFilter(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> new ControleurRevisionNom(Main.fenetre, this.btnReviser).handle(event));
 		btnReviser.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("T'es d'humeur à réviser ? Parce que moi non :D !"));
 		btnReviser.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
 		
@@ -251,43 +248,6 @@ public class Main extends Application {
 		return scMenu;
 	}
 	
-	private Scene afficherMenuRevision() {
-
-		btnReviserNom = new Button("Réviser le nom");
-		btnReviserNom.setPadding(new Insets(20));
-		btnReviserNom.setFont(new Font(15));
-		
-		btnReviserNom.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRevisionNom(Main.fenetre, this.btnReviserNom));
-		btnReviserNom.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne la définition et toi tu me donnes le nom de la définition d'accord :D ?"));
-		btnReviserNom.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
-		
-		btnReviserNom.setTranslateY(-150);
-		
-		btnReviserDef = new Button("Réviser la définition");
-		btnReviserDef.setPadding(new Insets(20));
-		btnReviserDef.setFont(new Font(15));
-		
-		btnReviserDef.addEventFilter(MouseEvent.MOUSE_CLICKED, new ControleurRevisionDef(Main.fenetre, this.btnReviserDef));
-		btnReviserDef.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Je te donne le nom et toi tu me donnes la définition MOT POUR MOT d'accord :D ?"));
-		btnReviserDef.setOnMouseExited((MouseEvent event) -> lbExplication.setText(" "));
-
-		
-		btnQuitter.setTranslateY(150);
-		
-		btnQuitter.setOnMouseClicked((MouseEvent event) -> {this.initialisation(); this.positionnement();});
-		btnQuitter.setText("Revenir au menu précédent");
-		btnQuitter.setOnMouseEntered((MouseEvent event) -> lbExplication.setText("Clique sur ce bouton et tu reviendras au menu précédent ;) !"));
-		
-		lbAccueil.setText("Je te le dis d'avance, tu recommences jusqu'à avoir la note maximale !");
-		
-		vbBtn.getChildren().removeAll(btnGestionCategorie, btnGestionDef, btnReviser);
-		vbBtn.getChildren().addAll(btnReviserDef, btnReviserNom);
-		
-		scMenu.setRoot(root);
-
-		return scMenu;
-	}
-
 	public static void main(String[] args) {
 
 		categories = new Categorie[10];

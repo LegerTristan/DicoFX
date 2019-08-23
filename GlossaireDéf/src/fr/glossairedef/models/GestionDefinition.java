@@ -1,5 +1,6 @@
 package fr.glossairedef.models;
 
+import fr.glossairedef.vue.FenetreRevision;
 import fr.glossairedef.vue.Main;
 
 public interface GestionDefinition extends GestionCategorie {
@@ -38,5 +39,26 @@ public interface GestionDefinition extends GestionCategorie {
 			}
 		}
 		SauvegardeAutomatique.autoSave();
+	}
+	
+	public default String renvoieTxtDeDefinition(String nomCategorie, int idCategorie) {
+
+		if(FenetreRevision.getIterateur() < Main.categories[idCategorie].getDefinitions().size()) {
+			
+			return (null != Main.categories[idCategorie].getDefinitions().get(FenetreRevision.getIterateur())) ? 
+					Main.categories[idCategorie].getDefinitions().get(FenetreRevision.getIterateur()).getDefinition() : null;
+		}
+		return null;
+		
+	}
+	
+	public default String renvoieTxtDeNom(String nomCategorie, int idCategorie) {
+		
+		if(FenetreRevision.getIterateur() < Main.categories[idCategorie].getDefinitions().size()) {
+			
+			return (null != Main.categories[idCategorie].getDefinitions().get(FenetreRevision.getIterateur())) ? 
+					Main.categories[idCategorie].getDefinitions().get(FenetreRevision.getIterateur()).getNom() : null;
+		}
+		return null;
 	}
 }

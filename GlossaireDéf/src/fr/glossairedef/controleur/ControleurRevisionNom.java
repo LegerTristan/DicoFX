@@ -60,7 +60,17 @@ public class ControleurRevisionNom implements EventHandler<MouseEvent> {
 			
 			FenetreRevision questionSuivante = new FenetreRevision(Main.fenetre);
 			
-			questionSuivante.afficherQuestionSuivante(reponse);
+			if(reponse == null) {
+				
+				reponse = "";
+			}
+			if(FenetreRevision.getIterateur() < Main.categories[FenetreRevision.getIdCategorie()].getDefinitions().size()) {
+				if(Main.categories[FenetreRevision.getIdCategorie()].getDefinitions().get(FenetreRevision.getIterateur()).getNom().equals(reponse)) {
+					
+					FenetreRevision.setNoteActuel(FenetreRevision.getNoteActuel() + 1);
+				}
+			}
+			questionSuivante.afficherQuestionSuivanteNom(reponse);
 		}
 	}
 }
