@@ -5,6 +5,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public interface GestionCategorie {
+	
+	/*
+	 * Interface qui contient toutes les interactions avec les catégories.
+	 */
 
 	public default boolean creerNouvelleCategorie(String nom) {
 		

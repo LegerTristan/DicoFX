@@ -4,6 +4,10 @@ import fr.glossairedef.vue.FenetreRevision;
 import fr.glossairedef.vue.Main;
 
 public interface GestionDefinition extends GestionCategorie {
+	
+	/*
+	 * Interface qui contient toutes les interactions avec les définitions
+	 */
 
 	public default void creerNouvelleDefinition(String nom, String texte, String nomCategorie) {
 		

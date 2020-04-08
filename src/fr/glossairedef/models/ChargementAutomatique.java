@@ -11,6 +11,9 @@ import fr.glossairedef.vue.Main;
 
 public class ChargementAutomatique {
 
+	/*
+	 * Classe qui charge automatiquement le fichier "save.txt" à chaque fois qu'on lance l'appli.
+	 */
 
 	public static void autoLoad() {
 		

@@ -30,6 +30,10 @@ public class SuppCategorie extends MiseEnPageFenetre implements ChargementComboB
 		this.fenetre = fenetre;
 		
 	}
+	
+	/*
+	 * Cette classe affiche la scène concernant la suppression d'une catégorie
+	 */
 
 
 	public SuppCategorie(Stage fenetre, String nom) {

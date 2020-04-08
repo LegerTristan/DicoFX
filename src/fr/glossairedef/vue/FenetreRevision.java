@@ -85,6 +85,10 @@ public class FenetreRevision extends MiseEnPageFenetre implements ChargementComb
 	public static void setNoteActuel(int noteActuel) {
 		FenetreRevision.noteActuel = noteActuel;
 	}
+	
+	/*
+	 * Affiche la scène sur laquelle l'utilisateur va pouvoir choisir ce qu'il souhaite réviser.
+	 */
 
 	public void afficherSceneChoix() {
 
@@ -162,6 +166,10 @@ public class FenetreRevision extends MiseEnPageFenetre implements ChargementComb
 		hbBtn.setSpacing(50);
 		
 	}
+	
+	/*
+	 * Lancement de la révision à partir d'une définition d'un nom
+	 */
 
 	public void afficherSceneRevisionNom() {
 		
@@ -362,7 +370,9 @@ public class FenetreRevision extends MiseEnPageFenetre implements ChargementComb
 		fenetre.setScene(scPrincipal);
 	}
 
-	
+	/*
+	 * Lancement de la révision à partir du nom d'une défintion
+	 */
 
 	public void afficherSceneRevisionDef() {
 

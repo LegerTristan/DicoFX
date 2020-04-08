@@ -23,6 +23,10 @@ public class AjoutCategorie extends MiseEnPageFenetre {
 	private TextField tfNom;
 	
 	private String nomCategorie;
+	
+	/*
+	 * Cette classe affiche la scène concernant l'ajout d'une catégorie
+	 */
 
 	public AjoutCategorie(Stage fenetre) {
 

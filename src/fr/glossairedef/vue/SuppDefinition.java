@@ -31,6 +31,11 @@ public class SuppDefinition extends MiseEnPageFenetre implements ChargementCombo
 
 	private ComboBox<String> cbDefinitions;
 	
+	
+	/*
+	 * Cette classe affiche la scène concernant la suppression d'une définition
+	 */
+	
 	public SuppDefinition(Stage fenetre) {
 
 		this.fenetre = fenetre;

@@ -36,6 +36,10 @@ public class ConsultationCategorie extends MiseEnPageFenetre implements Chargeme
 	private ComboBox<String> cbCategories;
 	private ComboBox<String> cbDefinitions;
 	
+	/*
+	 * Cette classe permet d'observer le contenu d'une catégorie et de voir les catégories existantes.
+	 */
+	
 	public ConsultationCategorie(Stage fenetre) {
 
 		this.fenetre = fenetre;

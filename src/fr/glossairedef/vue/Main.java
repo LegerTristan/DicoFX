@@ -63,6 +63,10 @@ public class Main extends Application {
 		scMenu = new Scene(root, Constante.LARGEUR_FENETRE, Constante.HAUTEUR_FENETRE);
 	}
 	
+	/*
+	 * Initialise le logiciel et affiche le menu après initalisation et positionnement des éléments d'affichage
+	 */
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		

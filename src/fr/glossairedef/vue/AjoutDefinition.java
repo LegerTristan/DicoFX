@@ -33,6 +33,10 @@ public class AjoutDefinition extends MiseEnPageFenetre implements ChargementComb
 	
 	private String nomDef;
 	
+	/*
+	 * Cette classe affiche la scène concernant l'ajout d'une définition
+	 */
+	
 	public AjoutDefinition(Stage fenetre) {
 
 		this.fenetre = fenetre;

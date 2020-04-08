@@ -9,6 +9,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
 public interface ChargementComboBox {
+	
+	/*
+	 * Interface gérant le chargement d'une ComboBox que ce soit une définition ou une catégorie
+	 */
 
 	public default ComboBox<String>chargerComboBoxCategories(){
 			
