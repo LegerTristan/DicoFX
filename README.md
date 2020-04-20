@@ -17,8 +17,8 @@ Il vous faut ensuite **cloner le dépôt** sur votre pc via **Git**, ou **télé
 
 ## Fonctionnement du projet
 
-L'application appel en premier la scène du menu principal sur lequel on peut ajouter/éditer/supprimer une définitin ou une catégorie.
-Un système de sauvegarde automatique a été mis en place pour garder les définitions et les catégories crées en toute simplicité et sans nécessite una action de la part de l'utilisateur.
+L'application appel en premier la scène du menu principal sur lequel on peut ajouter/éditer/supprimer une définition ou une catégorie.
+Un système de sauvegarde automatique a été mis en place pour garder les définitions et les catégories crées en toute simplicité et sans nécessite une action de la part de l'utilisateur.
 
 Toujours depuis le menu, on peut accéder à des exercices de révision d'une définition via le nom de celle-ci et inversement.
-Il faut retranscrire la définition exacte, il n'y a pas de limite de temps, une note est affiché à la fin de la session, celle-ci ne sont pas enregistrés par contre.
+Il faut retranscrire la définition exacte, il n'y a pas de limite de temps, une note est affichée à la fin de la session, celle-ci ne sont pas enregistrés par contre.
